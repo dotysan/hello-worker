@@ -119,7 +119,7 @@ ensure_uv() {
             wget --output-document=- $uv_install
 
         else
-            echo "ERROR: "
+            echo "ERROR: Doh! Can't find either curl or wget." >&2
             return 1
 
         fi |bash
