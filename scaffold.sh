@@ -2,6 +2,10 @@
 #
 # Bootstrap a Cloudflare Worker with C3.
 #
+# The purpose of this script is to have a fully reproducible
+# environment when creating a Cloudflare Worker. Think of it like a
+# poor-man's nix.
+#
 set -o errexit
 set -o errtrace
 set -o nounset
