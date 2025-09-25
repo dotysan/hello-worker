@@ -2,9 +2,11 @@
 #
 # Bootstrap a Cloudflare Worker with C3.
 #
-set -e
-set -u
-set -x
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+set -o xtrace
 
 PYVER=3.13.7t
 NEVER='1.9.*'
@@ -48,8 +50,11 @@ main() {
         uv run pnpm create "cloudflare@v$C3VER" "$HERE" \
             --type=hello-world --lang=ts --git --no-deploy
 
+        if [[ -d "$HERE/.git" ]]
+        then mv --verbose --no-clobber --target-directory=. "$HERE/.git"
+        fi
         mv --verbose --no-clobber --target-directory=. \
-            "$HERE"/.{editorconfig,gitignore,prettierrc,vscode,git}
+            "$HERE"/.{editorconfig,gitignore,prettierrc,vscode}
         mv --verbose --no-clobber --target-directory=. "$HERE"/*
         rmdir --verbose "$HERE"
 
